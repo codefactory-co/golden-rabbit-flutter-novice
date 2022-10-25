@@ -1,4 +1,3 @@
-import 'package:basic_widgets/widgets/row_widget.dart';
 import 'package:flutter/material.dart';
 
 class ColumnWidgetExample extends StatelessWidget {
@@ -6,7 +5,8 @@ class ColumnWidgetExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
+        body: SizedBox(
+          width: double.infinity,
           child: Column(
             // 주축 정렬 지정
             mainAxisAlignment: MainAxisAlignment.start,

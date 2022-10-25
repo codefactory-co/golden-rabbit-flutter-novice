@@ -12,7 +12,7 @@ class TextButtonWidgetExample extends StatelessWidget {
             // 스타일 지정
             style: TextButton.styleFrom(
               // 주 색상 지정
-              primary: Colors.red,
+              foregroundColor: Colors.red,
             ),
             // 버튼에 넣을 위젯
             child: Text('텍스트 버튼'),

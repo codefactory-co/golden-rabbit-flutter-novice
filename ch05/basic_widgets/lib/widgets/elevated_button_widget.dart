@@ -12,7 +12,7 @@ class ElevatedButtonWidgetExample extends StatelessWidget {
             onPressed: (){},
             // 버튼 스타일링
             style: ElevatedButton.styleFrom(
-              primary: Colors.red,
+              backgroundColor: Colors.red,
             ),
             // 버튼에 들어갈 위젯
             child: Text('엘레베이티드 버튼'),

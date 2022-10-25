@@ -1,7 +1,3 @@
-import 'package:basic_widgets/widgets/gesture_detector_widget.dart';
-import 'package:basic_widgets/widgets/icon_button_widget.dart';
-import 'package:basic_widgets/widgets/outlined_button_widget.dart';
-import 'package:basic_widgets/widgets/padding_widget.dart';
 import 'package:flutter/material.dart';
 
 class RowWidgetExample extends StatelessWidget {
@@ -9,12 +5,13 @@ class RowWidgetExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
+        body: SizedBox(
+          height: double.infinity,
           child: Row(
             // 주축 정렬 지정
             mainAxisAlignment: MainAxisAlignment.start,
             // 반대축 정렬 지정
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             // 넣고 싶은 위젯 입력
             children: [
               Container(

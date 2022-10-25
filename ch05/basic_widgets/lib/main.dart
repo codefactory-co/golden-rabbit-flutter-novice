@@ -1,4 +1,5 @@
 import 'package:basic_widgets/widgets/column_widget.dart';
+import 'package:basic_widgets/widgets/elevated_button_widget.dart';
 import 'package:basic_widgets/widgets/expanded_widget.dart';
 import 'package:basic_widgets/widgets/floating_action_button_widget.dart';
 import 'package:basic_widgets/widgets/gesture_detector_widget.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: FloatingActionButtonExample(),
+          child: ColumnWidgetExample(),
         ),
       ),
     );
