@@ -66,7 +66,7 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin{ 
   List<Widget> renderChildren(){
     return [
       HomeScreen(number: number),
-      SettingScreen(  // 기존에 있던 Container 코드를 통째로 교체
+      SettingsScreen(  // 기존에 있던 Container 코드를 통째로 교체
         threshold: threshold,
         onThresholdChange: onThresholdChange,
       ),
