@@ -6,6 +6,7 @@ import 'package:random_dice/screen/root_screen.dart';
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         sliderTheme: SliderThemeData(  // Slider 위젯 관련
