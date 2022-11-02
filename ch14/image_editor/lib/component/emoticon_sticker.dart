@@ -18,6 +18,7 @@ class EmoticonSticker extends StatefulWidget {
 }
 
 class _EmoticonStickerState extends State<EmoticonSticker> {
+  // 확대/축소 배율
   double scale = 1;
 
   // 가로의 움직임
@@ -36,6 +37,7 @@ class _EmoticonStickerState extends State<EmoticonSticker> {
       transform: Matrix4.identity()
         ..translate(hTransform, vTransform) // ➋ 상/하 움직임 정의
         ..scale(scale, scale), // ➌ 확대/축소 정의
+
       // 기존 작성해둔 Container 위젯
       child: Container(
         decoration: widget.isSelected // ➊ 선택 상태일 때만 테두리 색상 구현
@@ -63,7 +65,6 @@ class _EmoticonStickerState extends State<EmoticonSticker> {
           },
           onScaleUpdate: (ScaleUpdateDetails details) {
             // ➍ 스티커의 확대 비율이 변경됐을 때 실행
-            widget.onTransform(); // ➏
             setState(() {
               scale =
                   details.scale * actualScale; // ➋ 최근 확대 비율 기반으로 실제 확대 비율 계산
@@ -73,7 +74,7 @@ class _EmoticonStickerState extends State<EmoticonSticker> {
           },
           onScaleEnd: (ScaleEndDetails details) {
             actualScale = scale; // ➊ 확대 비율 저장
-          },
+          }, // ➎ 스티커의 확대 비율 변경이 완료됐을 때 실행
           child: Image.asset(
             widget.imgPath, // ➋
           ),
