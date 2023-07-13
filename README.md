@@ -3,7 +3,7 @@
 
 **CH14** image_editor 프로젝트의 `image_gallery_saver: 2.0.3`으로 업데이트
 
-디펜던시 예시
+**디펜던시 예시**
 ```yaml
 dependencies:
   flutter:
@@ -19,6 +19,10 @@ dependencies:
   image_gallery_saver: 2.0.3
   uuid: 3.0.6
 ```
+
+**디펜던시 변경 후에는 꼭 `pub get`을 다시 실행해주세요!**
+
+---
 
 
 **[Must Have] 코드팩토리의 플러터 프로그래밍》 예제 소스 코드입니다.**   
