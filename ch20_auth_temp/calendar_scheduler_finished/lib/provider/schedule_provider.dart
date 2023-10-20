@@ -56,6 +56,7 @@ class ScheduleProvider extends ChangeNotifier {
   logout(){
     accessToken = null;
     refreshToken = null;
+    cache = {};
     notifyListeners();
   }
 

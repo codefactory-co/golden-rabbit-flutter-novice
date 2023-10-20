@@ -83,36 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   backgroundColor: SECONDARY_COLOR,
                 ),
                 onPressed: () async {
-                  if (!saveAndValidateForm()) {
-                    return;
-                  }
-
-                  String? message;
-
-                  try {
-                    await provider.register(
-                      email: email,
-                      password: password,
-                    );
-                  } on DioError catch (e) {
-                    message = e.response?.data['message'];
-                  } catch (e) {
-                    message = '알 수 없는 오류가 발생했습니다.';
-                  } finally {
-                    if (message != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    } else {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => HomeScreen(),
-                        ),
-                      );
-                    }
-                  }
+                  onRegisterPress(provider);
                 },
                 child: Text('회원가입'),
               ),
@@ -121,36 +92,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   backgroundColor: SECONDARY_COLOR,
                 ),
                 onPressed: () async {
-                  if (!saveAndValidateForm()) {
-                    return;
-                  }
-
-                  String? message;
-
-                  try {
-                    await provider.login(
-                      email: email,
-                      password: password,
-                    );
-                  } on DioError catch (e) {
-                    message = e.response?.data['message'];
-                  } catch (e) {
-                    message = '알 수 없는 오류가 발생했습니다.';
-                  } finally {
-                    if (message != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    } else {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => HomeScreen(),
-                        ),
-                      );
-                    }
-                  }
+                  onLoginPress(provider);
                 },
                 child: Text('로그인'),
               ),
@@ -159,6 +101,72 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ),
     );
+  }
+
+  onRegisterPress(ScheduleProvider provider) async {
+    if (!saveAndValidateForm()) {
+      return;
+    }
+
+    String? message;
+
+    try {
+      await provider.register(
+        email: email,
+        password: password,
+      );
+    } on DioError catch (e) {
+      message = e.response?.data['message'];
+    } catch (e) {
+      message = '알 수 없는 오류가 발생했습니다.';
+    } finally {
+      if (message != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HomeScreen(),
+          ),
+        );
+      }
+    }
+  }
+
+  onLoginPress(ScheduleProvider provider) async {
+    if (!saveAndValidateForm()) {
+      return;
+    }
+
+    String? message;
+
+    try {
+      await provider.login(
+        email: email,
+        password: password,
+      );
+    } on DioError catch (e) {
+      message = e.response?.data['message'];
+    } catch (e) {
+      message = '알 수 없는 오류가 발생했습니다.';
+    } finally {
+      if (message != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+          ),
+        );
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HomeScreen(),
+          ),
+        );
+      }
+    }
   }
 
   bool saveAndValidateForm() {

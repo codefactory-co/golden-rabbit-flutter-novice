@@ -12,8 +12,8 @@ void main() async {
 
   await initializeDateFormatting();
 
-  final repository = ScheduleRepository();
-  final scheduleProvider = ScheduleProvider(repository: repository);
+  final scheduleRepository = ScheduleRepository();
+  final scheduleProvider = ScheduleProvider(scheduleRepository: scheduleRepository);
 
   runApp(
     ChangeNotifierProvider(

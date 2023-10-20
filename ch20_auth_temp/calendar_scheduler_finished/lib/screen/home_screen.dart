@@ -6,7 +6,7 @@ import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
 import 'package:calendar_scheduler/const/colors.dart';
 import 'package:get_it/get_it.dart';
 import 'package:calendar_scheduler/database/drift_database.dart';
-import 'package:provider/provider.dart';  // ➊ Provider 불러오기
+import 'package:provider/provider.dart'; // ➊ Provider 불러오기
 import 'package:calendar_scheduler/provider/schedule_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    final provider = context.read<ScheduleProvider>();  // ➋ 프로바이더 변경이 있을 때마다 build() 함수 재실행
-    provider.getSchedules(date:selectedDate);
+    final provider = context.read<ScheduleProvider>(); // ➋ 프로바이더 변경이 있을 때마다 build() 함수 재실행
+    provider.getSchedules(date: selectedDate);
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ScheduleProvider>();  // ➋ 프로바이더 변경이 있을 때마다 build() 함수 재실행
-    final selectedDate = provider.selectedDate;  // ➌ 선택된 날짜 가져오기
+    final provider = context.watch<ScheduleProvider>(); // ➋ 프로바이더 변경이 있을 때마다 build() 함수 재실행
+    final selectedDate = provider.selectedDate; // ➌ 선택된 날짜 가져오기
     final schedules = provider.cache[selectedDate] ?? [];
 
     return Scaffold(
@@ -60,12 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           // 달력과 리스트를 세로로 배치
           children: [
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('로그아웃'),
+            ),
             MainCalendar(
               selectedDate: selectedDate, // 선택된 날짜 전달하기
 
               // 날짜가 선택됐을 때 실행할 함수
-              onDaySelected: (selectedDate, focusedDate) =>
-                  onDaySelected(selectedDate, focusedDate, context),
+              onDaySelected: (selectedDate, focusedDate) => onDaySelected(selectedDate, focusedDate, context),
             ),
             SizedBox(height: 8.0),
             TodayBanner(
@@ -84,11 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     key: ObjectKey(schedule.id),
                     direction: DismissDirection.startToEnd,
                     onDismissed: (DismissDirection direction) {
-                      provider.deleteSchedule(date: selectedDate, id: schedule.id);  // ➊
+                      provider.deleteSchedule(date: selectedDate, id: schedule.id); // ➊
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 8.0, left: 8.0, right: 8.0),
+                      padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
                       child: ScheduleCard(
                         startTime: schedule.startTime,
                         endTime: schedule.endTime,
@@ -106,10 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDaySelected(
-      DateTime selectedDate,
-      DateTime focusedDate,
-      BuildContext context,
-      ) {
+    DateTime selectedDate,
+    DateTime focusedDate,
+    BuildContext context,
+  ) {
     final provider = context.read<ScheduleProvider>();
     provider.changeSelectedDate(
       date: selectedDate,

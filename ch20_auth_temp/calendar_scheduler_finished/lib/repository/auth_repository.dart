@@ -46,8 +46,14 @@ class AuthRepository {
   Future<String> rotateRefreshToken({
     required String refreshToken,
   }) async {
+    // Refresh Token을 Header에 담아서 Refresh Token 재발급 URL에 요청을 보냅니다.
     final result = await _dio.post(
       '$_targetUrl/token/refresh',
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $refreshToken',
+          },
+        )
     );
 
     return result.data['refreshToken'] as String;
@@ -56,8 +62,14 @@ class AuthRepository {
   Future<String> rotateAccessToken({
     required String refreshToken,
   }) async {
+    // Refresh Token을 Header에 담아서 Access Token 재발급 URL에 요청을 보냅니다.
     final result = await _dio.post(
       '$_targetUrl/token/access',
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $refreshToken',
+          },
+        )
     );
 
     return result.data['accessToken'] as String;

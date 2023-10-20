@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class ScheduleProvider extends ChangeNotifier {
-  final ScheduleRepository repository;  // ➊ API 요청 로직을 담은 클래스
+  final ScheduleRepository scheduleRepository;  // ➊ API 요청 로직을 담은 클래스
 
   DateTime selectedDate = DateTime.utc(  // ➋ 선택한 날짜
     DateTime.now().year,
@@ -14,14 +14,14 @@ class ScheduleProvider extends ChangeNotifier {
   Map<DateTime, List<ScheduleModel>> cache = {};  // ➌ 일정 정보를 저장해둘 변수
 
   ScheduleProvider({
-    required this.repository,
+    required this.scheduleRepository,
   }) : super() {
   }
 
   void getSchedules({
     required DateTime date,
   }) async {
-    final resp = await repository.getSchedules(date: date);  // GET 메서드 보내기
+    final resp = await scheduleRepository.getSchedules(date: date);  // GET 메서드 보내기
 
     cache.update(date, (value) => resp, ifAbsent: () => resp);  // ➊ 선택한 날짜의 일정들 업데이트하기
 
@@ -55,7 +55,7 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners();  // 캐시업데이트 반영하기
 
     try {
-      final savedSchedule = await repository.createSchedule(schedule: schedule);  // API 요청을 합니다.
+      final savedSchedule = await scheduleRepository.createSchedule(schedule: schedule);  // API 요청을 합니다.
 
       cache.update(  // ➊ 서버 응답 기반으로 캐시 업데이트
         targetDate,
@@ -92,7 +92,7 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners();  // 캐시업데이트 반영하기
 
     try {
-      await repository.deleteSchedule(id: id); // ➊ 삭제함수 실행
+      await scheduleRepository.deleteSchedule(id: id); // ➊ 삭제함수 실행
     } catch (e) {
       cache.update(
         // ➋ 삭제 실패시 캐시 롤백하기
