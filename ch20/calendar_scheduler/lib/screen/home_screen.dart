@@ -1,4 +1,3 @@
-import 'package:calendar_scheduler/component/banner_ad_widget.dart';
 import 'package:calendar_scheduler/model/schedule_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -60,17 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 8.0),
             StreamBuilder<QuerySnapshot>(
-
               // ListView에 적용했던 같은 쿼리
               stream: FirebaseFirestore.instance
                   .collection(
-                'schedule',
-              )
+                    'schedule',
+                  )
                   .where(
-                'date',
-                isEqualTo:
-                '${selectedDate.year}${selectedDate.month}${selectedDate.day}',
-              )
+                    'date',
+                    isEqualTo:
+                        '${selectedDate.year}${selectedDate.month}${selectedDate.day}',
+                  )
                   .snapshots(),
               builder: (context, snapshot) {
                 return TodayBanner(
@@ -84,19 +82,13 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 8.0),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                // ➊ 파이어스토어로부터 일정 정보 받아오기
                 stream: FirebaseFirestore.instance
-                    .collection(
-                      'schedule',
-                    )
-                    .where(
-                      'date',
-                      isEqualTo:
-                          '${selectedDate.year}${selectedDate.month}${selectedDate.day}',
-                    )
+                    .collection('schedule')
+                    .where('date',
+                        isEqualTo:
+                            '${selectedDate.year}${selectedDate.month.toString().padLeft(2, '0')}${selectedDate.day.toString().padLeft(2, '0')}')
                     .snapshots(),
                 builder: (context, snapshot) {
-                  // Stream을 가져오는 동안 에러가 났을 때 보여줄 화면
                   if (snapshot.hasError) {
                     return Center(
                       child: Text('일정 정보를 가져오지 못했습니다.'),
@@ -105,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // 로딩 중일 때 보여줄 화면
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container();
+                    return Text("Loading");
                   }
 
                   // ➋ ScheduleModel로 데이터 매핑하기
@@ -116,16 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                       .toList();
 
-                  return ListView.separated(
+                  return ListView.builder(
                     itemCount: schedules.length,
-
-                    // ➋ 일정 중간 중간에 실행될 함수
-                    separatorBuilder: (context, index){
-                      return BannerAdWidget();
-                    },
                     itemBuilder: (context, index) {
                       final schedule = schedules[index];
-
                       return Dismissible(
                         key: ObjectKey(schedule.id),
                         direction: DismissDirection.startToEnd,
