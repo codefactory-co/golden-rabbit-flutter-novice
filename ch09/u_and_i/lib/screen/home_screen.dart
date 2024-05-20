@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:u_and_i/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _DDay(
-
               // ➎ 하트 눌렀을때 실행할 함수 전달하기
               onHeartPressed: onHeartPressed,
               firstDay: firstDay,
@@ -39,15 +39,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onHeartPressed(){  // ➍ 하트 눌렀을때 실행할 함수
-    showCupertinoDialog(  // ➋ 쿠퍼티노 다이얼로그 실행
+  void onHeartPressed() {
+    // ➍ 하트 눌렀을때 실행할 함수
+    showCupertinoDialog(
+      // ➋ 쿠퍼티노 다이얼로그 실행
       context: context,
       builder: (BuildContext context) {
-        return Align(  // ➊ 정렬을 지정하는 위젯
-          alignment: Alignment.bottomCenter,  // ➋ 아래 중간으로 정렬
+        return Align(
+          // ➊ 정렬을 지정하는 위젯
+          alignment: Alignment.bottomCenter, // ➋ 아래 중간으로 정렬
           child: Container(
-            color: Colors.white,  // 배경색 흰색 지정
-            height: 300,  // 높이 300 지정
+            color: Colors.white, // 배경색 흰색 지정
+            height: 300, // 높이 300 지정
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (DateTime date) {
@@ -69,13 +72,13 @@ class _DDay extends StatelessWidget {
   final DateTime firstDay;
 
   _DDay({
-    required this.onHeartPressed,  // ➋ 상위에서 함수 입력받기
+    required this.onHeartPressed, // ➋ 상위에서 함수 입력받기
     required this.firstDay,
   });
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).extension<CustomTextTheme>();
     final now = DateTime.now();
 
     return Column(
@@ -84,18 +87,18 @@ class _DDay extends StatelessWidget {
         Text(
           // 최상단 U&I 글자
           'U&I',
-          style: textTheme.headline1,
+          style: textTheme?.headline1,
         ),
         const SizedBox(height: 16.0),
         Text(
           // 두번째 글자
           '우리 처음 만난 날',
-          style: textTheme.bodyText1,
+          style: textTheme?.bodyText1,
         ),
         Text(
           // 임시로 지정한 만난 날짜
           '${firstDay.year}.${firstDay.month}.${firstDay.day}',
-          style: textTheme.bodyText2,
+          style: textTheme?.bodyText2,
         ),
         const SizedBox(height: 16.0),
         IconButton(
@@ -111,7 +114,7 @@ class _DDay extends StatelessWidget {
         Text(
           // 만난 후 DDay
           'D+${DateTime(now.year, now.month, now.day).difference(firstDay).inDays + 1}',
-          style: textTheme.headline2,
+          style: textTheme?.headline2,
         ),
       ],
     );
